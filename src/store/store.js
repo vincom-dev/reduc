@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../counterSlice"; // Импортируем редьюсер
-import todosReducer from "../todosSlice"; // Импортируем редьюсер
+import counterReducer from "../slices/counterSlice"; // Импортируем редьюсер
+import todosReducer from "../slices/todosSlice"; // Импортируем редьюсер
 
 const store = configureStore({
   reducer: {

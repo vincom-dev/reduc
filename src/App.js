@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement, incrementByAmount } from "./counterSlice";
-import { addTodo , editTodo, deleteTodo} from "./todosSlice";
+import { increment, decrement, incrementByAmount } from "./slices/counterSlice";
+import { addTodo , editTodo, deleteTodo} from "./slices/todosSlice";
 
 const App = () => {
   const count = useSelector((state) => state.counter.value); // Получаем данные из хранилища
