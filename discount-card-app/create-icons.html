@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Icon Generator - Discount Cards</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        canvas {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 10px;
+            display: block;
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .icon-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .icon-item h3 {
+            margin: 10px 0 5px 0;
+            color: #333;
+            font-size: 14px;
+        }
+        .icon-item p {
+            margin: 0;
+            color: #666;
+            font-size: 12px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .download-all {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        .preview {
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Discount Cards App Icon Generator</h1>
+        
+        <div class="preview">
+            <h2>Preview (1024x1024)</h2>
+            <canvas id="preview" width="200" height="200"></canvas>
+        </div>
+
+        <div class="download-all">
+            <button onclick="generateAllIcons()" style="background: #28a745; font-size: 16px; padding: 15px 30px;">
+                🎨 Generate All App Icons
+            </button>
+            <p style="margin-top: 10px; color: #666;">
+                This will create all required icon sizes for Android and iOS
+            </p>
+        </div>
+
+        <div class="icon-grid" id="iconGrid">
+            <!-- Icons will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        // Icon generation function
+        function createIcon(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, 0, size);
+            gradient.addColorStop(0, '#007bff');
+            gradient.addColorStop(1, '#0056b3');
+            
+            // Draw rounded rectangle background
+            const cornerRadius = size * 0.15;
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, cornerRadius);
+            ctx.fill();
+
+            // Draw credit card
+            const cardWidth = size * 0.65;
+            const cardHeight = cardWidth * 0.63; // Credit card ratio
+            const cardX = (size - cardWidth) / 2;
+            const cardY = size * 0.25;
+            
+            // Card background
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.beginPath();
+            ctx.roundRect(cardX, cardY, cardWidth, cardHeight, cardWidth * 0.05);
+            ctx.fill();
+
+            // Card chip
+            const chipSize = cardWidth * 0.1;
+            const chipX = cardX + cardWidth * 0.12;
+            const chipY = cardY + cardHeight * 0.25;
+            
+            ctx.fillStyle = '#c0c0c0';
+            ctx.beginPath();
+            ctx.roundRect(chipX, chipY, chipSize, chipSize * 0.8, 3);
+            ctx.fill();
+
+            // Card number dots
+            ctx.fillStyle = '#666';
+            const dotSize = Math.max(1, size * 0.008);
+            const startX = chipX;
+            const startY = chipY + chipSize * 1.5;
+            
+            for (let i = 0; i < 16; i++) {
+                const groupOffset = Math.floor(i / 4) * dotSize * 2;
+                const x = startX + (i % 4) * dotSize * 3 + groupOffset;
+                const y = startY;
+                
+                ctx.beginPath();
+                ctx.arc(x + dotSize/2, y + dotSize/2, dotSize/2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // QR code representation
+            const qrSize = cardWidth * 0.16;
+            const qrX = cardX + cardWidth - qrSize - cardWidth * 0.08;
+            const qrY = cardY + cardHeight - qrSize - cardHeight * 0.12;
+            
+            // QR background
+            ctx.fillStyle = '#000';
+            ctx.fillRect(qrX, qrY, qrSize, qrSize);
+            
+            // QR pattern
+            ctx.fillStyle = '#fff';
+            const cellSize = qrSize / 8;
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                    if ((i + j) % 2 === 0 || i === 0 || i === 7 || j === 0 || j === 7) {
+                        ctx.fillRect(qrX + i * cellSize, qrY + j * cellSize, cellSize - 1, cellSize - 1);
+                    }
+                }
+            }
+
+            // Discount percentage symbol
+            const symbolY = cardY + cardHeight + size * 0.08;
+            const symbolRadius = size * 0.08;
+            
+            // Circle background
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.beginPath();
+            ctx.arc(size / 2, symbolY, symbolRadius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Percentage symbol
+            ctx.fillStyle = '#007bff';
+            ctx.font = `bold ${size * 0.08}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('%', size / 2, symbolY);
+
+            return canvas;
+        }
+
+        // Download function
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Generate all icons
+        function generateAllIcons() {
+            const iconGrid = document.getElementById('iconGrid');
+            iconGrid.innerHTML = '';
+
+            // Android icons
+            const androidSizes = [
+                {size: 36, name: 'icon-ldpi.png', desc: 'Android LDPI'},
+                {size: 48, name: 'icon-mdpi.png', desc: 'Android MDPI'},
+                {size: 72, name: 'icon-hdpi.png', desc: 'Android HDPI'},
+                {size: 96, name: 'icon-xhdpi.png', desc: 'Android XHDPI'},
+                {size: 144, name: 'icon-xxhdpi.png', desc: 'Android XXHDPI'},
+                {size: 192, name: 'icon-xxxhdpi.png', desc: 'Android XXXHDPI'}
+            ];
+
+            // iOS icons
+            const iosSizes = [
+                {size: 57, name: 'icon-57.png', desc: 'iOS 57pt'},
+                {size: 114, name: 'icon-57@2x.png', desc: 'iOS 57pt @2x'},
+                {size: 72, name: 'icon-72.png', desc: 'iOS 72pt'},
+                {size: 144, name: 'icon-72@2x.png', desc: 'iOS 72pt @2x'},
+                {size: 60, name: 'icon-60.png', desc: 'iOS 60pt'},
+                {size: 120, name: 'icon-60@2x.png', desc: 'iOS 60pt @2x'},
+                {size: 180, name: 'icon-60@3x.png', desc: 'iOS 60pt @3x'},
+                {size: 76, name: 'icon-76.png', desc: 'iOS 76pt'},
+                {size: 152, name: 'icon-76@2x.png', desc: 'iOS 76pt @2x'},
+                {size: 40, name: 'icon-40.png', desc: 'iOS 40pt'},
+                {size: 80, name: 'icon-40@2x.png', desc: 'iOS 40pt @2x'},
+                {size: 120, name: 'icon-40@3x.png', desc: 'iOS 40pt @3x'},
+                {size: 29, name: 'icon-small.png', desc: 'iOS Small'},
+                {size: 58, name: 'icon-small@2x.png', desc: 'iOS Small @2x'},
+                {size: 87, name: 'icon-small@3x.png', desc: 'iOS Small @3x'},
+                {size: 167, name: 'icon-83.5@2x.png', desc: 'iOS 83.5pt @2x'},
+                {size: 1024, name: 'icon-1024.png', desc: 'iOS App Store'}
+            ];
+
+            // Additional icons
+            const additionalSizes = [
+                {size: 512, name: 'icon-512.png', desc: 'Play Store'},
+                {size: 32, name: 'favicon.ico', desc: 'Favicon'},
+                {size: 256, name: 'icon-256.png', desc: 'Desktop'}
+            ];
+
+            const allSizes = [...androidSizes, ...iosSizes, ...additionalSizes];
+
+            allSizes.forEach(iconInfo => {
+                const canvas = createIcon(iconInfo.size);
+                
+                const iconItem = document.createElement('div');
+                iconItem.className = 'icon-item';
+                iconItem.innerHTML = `
+                    <canvas width="${Math.min(iconInfo.size, 80)}" height="${Math.min(iconInfo.size, 80)}"></canvas>
+                    <h3>${iconInfo.name}</h3>
+                    <p>${iconInfo.desc}</p>
+                    <p>${iconInfo.size}x${iconInfo.size}</p>
+                    <button onclick="downloadIcon(${iconInfo.size}, '${iconInfo.name}')">Download</button>
+                `;
+                
+                // Draw icon preview
+                const previewCanvas = iconItem.querySelector('canvas');
+                const previewCtx = previewCanvas.getContext('2d');
+                const previewSize = Math.min(iconInfo.size, 80);
+                previewCtx.drawImage(canvas, 0, 0, iconInfo.size, iconInfo.size, 0, 0, previewSize, previewSize);
+                
+                iconGrid.appendChild(iconItem);
+            });
+
+            // Add download all button
+            const downloadAllDiv = document.createElement('div');
+            downloadAllDiv.className = 'icon-item';
+            downloadAllDiv.innerHTML = `
+                <h3>📦 Download All</h3>
+                <p>Get all icons at once</p>
+                <button onclick="downloadAllIcons()" style="background: #28a745;">Download ZIP</button>
+            `;
+            iconGrid.appendChild(downloadAllDiv);
+        }
+
+        // Download individual icon
+        function downloadIcon(size, filename) {
+            const canvas = createIcon(size);
+            downloadCanvas(canvas, filename);
+        }
+
+        // Download all icons as ZIP (simplified - individual downloads)
+        function downloadAllIcons() {
+            const sizes = [
+                {size: 36, name: 'icon-ldpi.png'},
+                {size: 48, name: 'icon-mdpi.png'},
+                {size: 72, name: 'icon-hdpi.png'},
+                {size: 96, name: 'icon-xhdpi.png'},
+                {size: 144, name: 'icon-xxhdpi.png'},
+                {size: 192, name: 'icon-xxxhdpi.png'},
+                {size: 57, name: 'icon-57.png'},
+                {size: 114, name: 'icon-57@2x.png'},
+                {size: 60, name: 'icon-60.png'},
+                {size: 120, name: 'icon-60@2x.png'},
+                {size: 180, name: 'icon-60@3x.png'},
+                {size: 76, name: 'icon-76.png'},
+                {size: 152, name: 'icon-76@2x.png'},
+                {size: 1024, name: 'icon-1024.png'},
+                {size: 512, name: 'icon-512.png'}
+            ];
+
+            alert('Downloading all icons individually. Check your downloads folder.');
+            
+            sizes.forEach((iconInfo, index) => {
+                setTimeout(() => {
+                    downloadIcon(iconInfo.size, iconInfo.name);
+                }, index * 500); // Stagger downloads
+            });
+        }
+
+        // Create preview on load
+        window.onload = function() {
+            const previewCanvas = document.getElementById('preview');
+            const fullIcon = createIcon(1024);
+            const ctx = previewCanvas.getContext('2d');
+            ctx.drawImage(fullIcon, 0, 0, 1024, 1024, 0, 0, 200, 200);
+        };
+    </script>
+</body>
+</html>

@@ -190,7 +190,7 @@ cordova run android
 - [ ] Barcode scanning support
 
 ### Technical Improvements
-- [ ] App icons and splash screens
+- [x] App icons and splash screens
 - [ ] Push notifications
 - [ ] Biometric authentication
 - [ ] Performance optimizations
@@ -204,6 +204,7 @@ cordova run android
 - Modern mobile UI
 - Cross-platform compatibility
 - Offline functionality
+- Professional app icons (SVG + all mobile sizes)
 - Comprehensive documentation
 
 ### 🔄 Ready for Deployment
@@ -215,10 +216,10 @@ cordova run android
 
 ## 📞 Next Steps
 
-1. **Set up Android SDK** for Android builds
-2. **Install Xcode** for iOS builds (macOS only)
-3. **Test on physical devices** for QR scanning
-4. **Add app icons** for final polish
+1. **Generate app icons** using `create-icons.html` (see ICON_GENERATION.md)
+2. **Set up Android SDK** for Android builds
+3. **Install Xcode** for iOS builds (macOS only)
+4. **Test on physical devices** for QR scanning
 5. **Build release versions** for distribution
 
 ---

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#007bff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0056b3;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cardGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.98" />
+      <stop offset="100%" style="stop-color:#f8f9fa;stop-opacity:0.95" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded background -->
+  <rect width="1024" height="1024" rx="153" ry="153" fill="url(#bgGradient)" />
+  
+  <!-- Credit card -->
+  <rect x="179" y="256" width="666" height="420" rx="33" ry="33" fill="url(#cardGradient)" stroke="#e9ecef" stroke-width="2" />
+  
+  <!-- Card chip -->
+  <rect x="256" y="361" width="66" height="53" rx="5" ry="5" fill="#c0c0c0" />
+  
+  <!-- Card number dots (representing hidden digits) -->
+  <g fill="#666666">
+    <!-- First group -->
+    <circle cx="256" cy="460" r="4" />
+    <circle cx="280" cy="460" r="4" />
+    <circle cx="304" cy="460" r="4" />
+    <circle cx="328" cy="460" r="4" />
+    
+    <!-- Second group -->
+    <circle cx="368" cy="460" r="4" />
+    <circle cx="392" cy="460" r="4" />
+    <circle cx="416" cy="460" r="4" />
+    <circle cx="440" cy="460" r="4" />
+    
+    <!-- Third group -->
+    <circle cx="480" cy="460" r="4" />
+    <circle cx="504" cy="460" r="4" />
+    <circle cx="528" cy="460" r="4" />
+    <circle cx="552" cy="460" r="4" />
+    
+    <!-- Fourth group (last 4 digits - slightly larger) -->
+    <circle cx="592" cy="460" r="5" />
+    <circle cx="618" cy="460" r="5" />
+    <circle cx="644" cy="460" r="5" />
+    <circle cx="670" cy="460" r="5" />
+  </g>
+  
+  <!-- QR Code representation -->
+  <g transform="translate(719, 576)">
+    <!-- QR background -->
+    <rect width="106" height="106" fill="#000000" />
+    
+    <!-- QR pattern (simplified) -->
+    <g fill="#ffffff">
+      <!-- Corner squares -->
+      <rect x="0" y="0" width="20" height="20" />
+      <rect x="86" y="0" width="20" height="20" />
+      <rect x="0" y="86" width="20" height="20" />
+      
+      <!-- Border lines -->
+      <rect x="0" y="0" width="106" height="4" />
+      <rect x="0" y="102" width="106" height="4" />
+      <rect x="0" y="0" width="4" height="106" />
+      <rect x="102" y="0" width="4" height="106" />
+      
+      <!-- Inner pattern -->
+      <rect x="13" y="13" width="7" height="7" />
+      <rect x="33" y="13" width="7" height="7" />
+      <rect x="53" y="13" width="7" height="7" />
+      <rect x="73" y="13" width="7" height="7" />
+      <rect x="93" y="13" width="7" height="7" />
+      
+      <rect x="13" y="33" width="7" height="7" />
+      <rect x="53" y="33" width="7" height="7" />
+      <rect x="93" y="33" width="7" height="7" />
+      
+      <rect x="13" y="53" width="7" height="7" />
+      <rect x="33" y="53" width="7" height="7" />
+      <rect x="73" y="53" width="7" height="7" />
+      
+      <rect x="13" y="73" width="7" height="7" />
+      <rect x="53" y="73" width="7" height="7" />
+      <rect x="93" y="73" width="7" height="7" />
+      
+      <rect x="13" y="93" width="7" height="7" />
+      <rect x="33" y="93" width="7" height="7" />
+      <rect x="53" y="93" width="7" height="7" />
+      <rect x="73" y="93" width="7" height="7" />
+      <rect x="93" y="93" width="7" height="7" />
+    </g>
+  </g>
+  
+  <!-- Discount percentage symbol -->
+  <g transform="translate(512, 768)">
+    <!-- Circle background -->
+    <circle r="82" fill="rgba(255, 255, 255, 0.95)" stroke="#007bff" stroke-width="3" />
+    
+    <!-- Percentage symbol -->
+    <text x="0" y="0" text-anchor="middle" dominant-baseline="central" 
+          font-family="Arial, sans-serif" font-size="82" font-weight="bold" fill="#007bff">%</text>
+  </g>
+  
+  <!-- Small decorative elements -->
+  <g opacity="0.3">
+    <!-- Sparkle effects -->
+    <circle cx="150" cy="200" r="3" fill="#ffffff" />
+    <circle cx="874" cy="180" r="4" fill="#ffffff" />
+    <circle cx="120" cy="824" r="3" fill="#ffffff" />
+    <circle cx="904" cy="844" r="4" fill="#ffffff" />
+    
+    <!-- Subtle card pattern -->
+    <rect x="200" y="300" width="624" height="2" fill="#e9ecef" opacity="0.5" />
+    <rect x="200" y="640" width="624" height="2" fill="#e9ecef" opacity="0.5" />
+  </g>
+</svg>
